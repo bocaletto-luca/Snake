@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="description" content="Snake – WebGame with 20 progressive levels by Bocaletto Luca. Supports gamepad and keyboard.">
+  <meta name="description" content="Snake – WebGame with 20 progressive levels by Bocaletto Luca, supporting gamepad and keyboard.">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>Snake | WEBGAME | By Bocaletto Luca</title>
   
@@ -30,7 +30,7 @@
       padding: 20px;
     }
     
-    /* Home & Game Screens */
+    /* Home and Game Screens */
     .screen {
       display: none;
       width: 100%;
@@ -60,7 +60,7 @@
       width: 100%;
     }
     
-    /* Toast Overlay – will be used by controller.js */
+    /* Toast Overlay – used by controller.js */
     #messageOverlay {
       position: fixed;
       top: 20px;
@@ -88,7 +88,7 @@
       .screen:not(.active) {
         display: none;
       }
-      /* For active ones, apply responsive sizing */
+      /* For active screens, apply responsive sizing */
       .screen.active {
         width: 98%;
         max-width: 400px;
@@ -144,13 +144,13 @@
         <div class="modal-header">
           <h5 id="helpModalLabel" class="modal-title">Official Snake Rules</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
+           <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
           <p>
             <strong>Objective:</strong><br>
-            Control the snake to eat food and grow. The snake moves on a grid with a <em>wrap-around</em> effect: it exits on one side and appears on the opposite side. At advanced levels (up to 20), fixed obstacles (blocks) are introduced which will end the game if touched.
+            Control the snake to grow by eating food. The snake moves on a grid with a <em>wrap-around</em> effect: it exits one side and reappears on the other. At advanced levels (up to 20), fixed obstacles (blocks) are added that will end the game if touched.
           </p>
           <p>
             <strong>Controls:</strong><br>
@@ -158,7 +158,7 @@
           </p>
           <p>
             <strong>Levels:</strong><br>
-            Each level requires you to eat a certain amount of food to progress to the next level; as the level increases, the speed increases and obstacles are introduced.
+            Each level requires eating a certain amount of food to progress; as the level increases, the snake's speed increases and obstacles are introduced.
           </p>
           <p><em>Good luck and have fun!</em></p>
         </div>
@@ -176,7 +176,7 @@
         <div class="modal-header">
           <h5 id="recordModalLabel" class="modal-title">Record History</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
+           <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
@@ -190,7 +190,7 @@
               </tr>
             </thead>
             <tbody>
-              <!-- Dynamically loaded rows from bot.js -->
+              <!-- Rows will be loaded dynamically by bot.js -->
             </tbody>
           </table>
         </div>
@@ -206,7 +206,7 @@
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   
-  <!-- Custom JavaScript files (in order) -->
+  <!-- Custom JavaScript files in order -->
   <script src="controller.js"></script>
   <script src="bot.js"></script>
   <script src="stage.js"></script>
