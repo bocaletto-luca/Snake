@@ -14,7 +14,7 @@
 
 ## Language
 
-**English and Italian.
+English and Italian.
 
 ## Installation
 
