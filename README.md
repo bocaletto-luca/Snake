@@ -7,6 +7,7 @@
 ![Project Completed](https://img.shields.io/badge/Project-Completed-green?style=for-the-badge)
 ![GPLv3](https://img.shields.io/badge/License-GPLv3-blue?style=for-the-badge)
 
+[![Test Online](https://img.shields.io/badge/Test%20Online-Click%20Here-brightgreen?style=for-the-badge)](https://bocaletto-luca.github.io/Snake/)
 ## Overview
 
 **Snake Web Game Single Player** is a modern browser-based remake of the classic Snake game. Built using HTML5, CSS3, and JavaScript, this game delivers smooth animations and responsive gameplay. Guide your snake as it eats, grows longer and faster, and avoid collisions with the wall or your own tail.  
