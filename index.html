@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="Snake – WebGame with 20 progressive levels by Bocaletto Luca. Supports gamepad and keyboard.">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Snake | WEBGAME | By Bocaletto Luca</title>
+  
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  
+  <style>
+    /* RESET & BASE */
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background: linear-gradient(135deg, #66bb6a, #43a047);
+      color: #333;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    /* Main container centered */
+    .main-container {
+      min-height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+    
+    /* Home & Game Screens */
+    .screen {
+      display: none;
+      width: 100%;
+      max-width: 800px;
+      background: #fff;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0px 2px 10px rgba(0,0,0,0.2);
+      margin-bottom: 20px;
+    }
+    .active {
+      display: block;
+    }
+    
+    h1 {
+      font-weight: bold;
+      text-align: center;
+    }
+    
+    /* Game Canvas */
+    #gameCanvas {
+      display: block;
+      margin: 0 auto;
+      background-color: #000;
+      border: 5px solid #444;
+      border-radius: 4px;
+      width: 100%;
+    }
+    
+    /* Toast Overlay – will be used by controller.js */
+    #messageOverlay {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: rgba(0,0,0,0.75);
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 5px;
+      z-index: 10000;
+      display: none;
+      font-size: 1rem;
+    }
+    
+    /* Preferences – color fields */
+    .pref-group label {
+      font-weight: bold;
+    }
+    
+    @media (max-width: 576px) {
+      h1 {
+        font-size: 1.75rem;
+      }
+      /* Hide only inactive screens */
+      .screen:not(.active) {
+        display: none;
+      }
+      /* For active ones, apply responsive sizing */
+      .screen.active {
+        width: 98%;
+        max-width: 400px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="messageOverlay"></div>
+  <div class="main-container">
+    <!-- HOME SCREEN -->
+    <div id="homeScreen" class="screen active">
+      <h1>Snake | Classic Game</h1>
+      <hr>
+      <form id="preferencesForm">
+        <div class="form-group">
+          <label for="playerName">Player Name:</label>
+          <input type="text" id="playerName" class="form-control" placeholder="Enter your name" required>
+        </div>
+        <div class="form-row pref-group">
+          <div class="form-group col-md-6">
+            <label for="snakeHeadColor">Head Color</label>
+            <input type="color" id="snakeHeadColor" class="form-control" value="#FFEB3B">
+          </div>
+          <div class="form-group col-md-6">
+            <label for="snakeBodyColor">Body Color</label>
+            <input type="color" id="snakeBodyColor" class="form-control" value="#4CAF50">
+          </div>
+        </div>
+        <button type="button" id="startGameBtn" class="btn btn-success btn-block mt-3">Start Game</button>
+      </form>
+      <div class="text-center mt-4">
+        <button id="helpBtn" class="btn btn-info mr-2" data-toggle="modal" data-target="#helpModal">Rules</button>
+        <button id="recordBtn" class="btn btn-secondary">Records</button>
+      </div>
+    </div>
+    
+    <!-- GAME SCREEN -->
+    <div id="gameScreen" class="screen">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <span id="scoreDisplay" class="font-weight-bold">Score: 0</span>
+        <span id="levelDisplay" class="font-weight-bold">Level: 1/20</span>
+        <button id="exitGameBtn" class="btn btn-danger">Exit</button>
+      </div>
+      <canvas id="gameCanvas"></canvas>
+    </div>
+  </div>
+  
+  <!-- RULES MODAL -->
+  <div class="modal fade" id="helpModal" tabindex="-1" aria-labelledby="helpModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 id="helpModalLabel" class="modal-title">Official Snake Rules</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>
+            <strong>Objective:</strong><br>
+            Control the snake to eat food and grow. The snake moves on a grid with a <em>wrap-around</em> effect: it exits on one side and appears on the opposite side. At advanced levels (up to 20), fixed obstacles (blocks) are introduced which will end the game if touched.
+          </p>
+          <p>
+            <strong>Controls:</strong><br>
+            Use the arrow keys or WASD, click or drag on the canvas, or use a gamepad to change direction.
+          </p>
+          <p>
+            <strong>Levels:</strong><br>
+            Each level requires you to eat a certain amount of food to progress to the next level; as the level increases, the speed increases and obstacles are introduced.
+          </p>
+          <p><em>Good luck and have fun!</em></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- RECORD MODAL -->
+  <div class="modal fade" id="recordModal" tabindex="-1" aria-labelledby="recordModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 id="recordModalLabel" class="modal-title">Record History</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <table id="recordTable" class="table table-striped">
+            <thead>
+              <tr>
+                <th>Player</th>
+                <th>Date/Time</th>
+                <th>Level</th>
+                <th>Score</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Dynamically loaded rows from bot.js -->
+            </tbody>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- External libraries: jQuery, Popper, and Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  
+  <!-- Custom JavaScript files (in order) -->
+  <script src="controller.js"></script>
+  <script src="bot.js"></script>
+  <script src="stage.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>
