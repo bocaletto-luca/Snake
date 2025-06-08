@@ -80,11 +80,21 @@
       font-weight: bold;
     }
     
-    @media (max-width: 576px) {
-      h1 {
-        font-size: 1.75rem;
-      }
-    }
+@media (max-width: 576px) {
+  h1 {
+    font-size: 1.75rem;
+  }
+  /* Nascondi solo le schermate non attive */
+  .screen:not(.active) {
+    display: none;
+  }
+  /* Per quelle attive, applica le dimensioni responsive */
+  .screen.active {
+    width: 98%;
+    max-width: 400px;
+  }
+}
+
   </style>
 </head>
 <body>
