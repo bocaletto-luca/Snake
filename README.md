@@ -12,6 +12,9 @@
 
 **Snake Web Game Single Player** is a modern browser-based remake of the classic Snake game. Built using HTML5, CSS3, and JavaScript, this game delivers smooth animations and responsive gameplay. Guide your snake as it eats, grows longer and faster, and avoid collisions with the wall or your own tail.  
 
+## Language
+**English and Italian.
+
 ## Installation
 
 No installation is required. Simply serve the files via any HTTP/HTTPS server (for example, using Apache) and open `indexhtml` in your browser.
